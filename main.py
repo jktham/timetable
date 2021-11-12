@@ -1,6 +1,7 @@
 import json
 import requests
 from datetime import datetime, timedelta
+from flask_app import app
 
 def get_timetable(username, password, userid):
     with requests.Session() as s:
@@ -12,10 +13,11 @@ def get_timetable(username, password, userid):
         payload = {"hash": hash, "loginschool": "krm", "loginuser": username, "loginpassword": password}
         auth_response = s.post("https://intranet.tam.ch/krm/timetable/classbook", data=payload)
         if "userId" in auth_response.text:
+            print("authentication successful")
             print("got userid: " + auth_response.text.split("userId = \"", 1)[1].split("\"", 1)[0])
             print("def userid: " + userid)
         else:
-            print("Authentication failed")
+            print("authentication failed")
             return
             
         today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -26,8 +28,8 @@ def get_timetable(username, password, userid):
         cookies = {"username": username, "sturmuser": username, "school": "krm", "sturmsession": session}
         headers = {"x-requested-with": "XMLHttpRequest"}
         data_response = s.post("https://intranet.tam.ch/krm/timetable/ajax-get-timetable", data=payload, cookies=cookies, headers=headers)
-        data = data_response.json()["data"]
-    return data
+        
+    return data_response.json()["data"]
 
 with open("credentials.json") as file:
     cred = json.load(file)
