@@ -18,7 +18,7 @@ def get_timetable(username, password, userid):
             print("def userid: " + userid)
         else:
             print("authentication failed")
-            return
+            return 0
             
         today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
         monday = today - timedelta(days=today.weekday())

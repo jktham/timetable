@@ -7,7 +7,6 @@ import timetable
 def index():
     return render_template(
         'index.html', 
-        title='Timetable', 
         data=timetable.data, 
         username=timetable.username, 
         userid=timetable.userid

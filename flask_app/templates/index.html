@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for lesson in data %}
-        <p>{{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"]}}</p>
-    {% endfor %}
+    {% if data == 0 %}
+        <p>No data</p>
+    {% else %}
+        {% for lesson in data %}
+            <p>{{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
