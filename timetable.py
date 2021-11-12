@@ -38,10 +38,3 @@ with open("credentials.json") as file:
     userid = cred["userid"]
 
 data = get_timetable(username, password, userid)
-
-if data:
-    for i in range(len(data)):
-        print(data[i]["lessonDate"], data[i]["lessonStart"], data[i]["courseName"], data[i]["roomName"])
-    print(len(data))
-else:
-    print("No data")

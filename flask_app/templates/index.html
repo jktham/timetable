@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for lesson in data %}
+        <p>{{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"]}}</p>
+    {% endfor %}
+{% endblock %}
