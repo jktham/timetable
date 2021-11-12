@@ -12,10 +12,10 @@ def get_timetable(username, password, userid):
 
         payload = {"hash": hash, "loginschool": "krm", "loginuser": username, "loginpassword": password}
         auth_response = s.post("https://intranet.tam.ch/krm/timetable/classbook", data=payload)
+        if userid == "":
+            userid = auth_response.text.split("userId = \"", 1)[1].split("\"", 1)[0]
         if "userId" in auth_response.text:
-            print("authentication successful")
-            print("got userid: " + auth_response.text.split("userId = \"", 1)[1].split("\"", 1)[0])
-            print("def userid: " + userid)
+            print("authentication successful (" + str(userid) + ")")
         else:
             print("authentication failed")
             return 0
@@ -28,8 +28,16 @@ def get_timetable(username, password, userid):
         cookies = {"username": username, "sturmuser": username, "school": "krm", "sturmsession": session}
         headers = {"x-requested-with": "XMLHttpRequest"}
         data_response = s.post("https://intranet.tam.ch/krm/timetable/ajax-get-timetable", data=payload, cookies=cookies, headers=headers)
-        
     return data_response.json()["data"]
+
+def separate_days(data):
+    new_data = []
+    k = 0
+    for i in range(len(data)):
+        if data[i]["lessonDate"] != data[i-1]["lessonDate"] and i > 0 or i == len(data)-1:
+            new_data.append(data[k:i])
+            k = i
+    return new_data
 
 with open("credentials.json") as file:
     cred = json.load(file)
@@ -37,4 +45,4 @@ with open("credentials.json") as file:
     password = cred["password"]
     userid = cred["userid"]
 
-data = get_timetable(username, password, userid)
+data = separate_days(get_timetable(username, password, userid))

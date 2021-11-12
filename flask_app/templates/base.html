@@ -2,10 +2,11 @@
 <html>
     <head>
       <title>Timetable</title>
+      <link rel="stylesheet" type="text/css" href="../static/styles/main.css">
     </head>
     <body>
-        <div>user: {{username}}, id: {{userid}}</div>
+        <div class=title-div>user: {{username}}, id: {{userid}}</div>
         <hr>
-        {% block content %}{% endblock %}
+        {% block table %}{% endblock %}
     </body>
 </html>

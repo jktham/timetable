@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block table %}
     {% if data == 0 %}
         <p>No data</p>
     {% else %}
-        {% for lesson in data %}
-            <p>{{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}</p>
+        <div class=week-div>
+        {% for day in data %}
+            <div class=day-div>
+            <span>{{ day[0]["lessonDate"] }}</span>
+            {% for lesson in day %}
+                <div class=lesson-div>
+                    {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
+                </div>
+            {% endfor %}
+            </div>
         {% endfor %}
+        </div>
     {% endif %}
 {% endblock %}
