@@ -5,15 +5,17 @@
         <p>No data</p>
     {% else %}
         <div class=week-div>
-        {% for lesson in data %}
-            
-                <div class=hour-div style="grid-column: {{ lesson['positionIndex'][0] }}; grid-row: {{ lesson['positionIndex'][1] }}">
-                    <div class=lesson-div>
-                        {{ lesson["positionIndex"] }}
-                        {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
-                    </div>
-                </div>
-            
+        {% for hour in data %}
+            <div class=hour-div style="grid-column: {{ hour['positionIndex'][0] }}; grid-row: {{ hour['positionIndex'][1] }}">
+                {% for lesson in data %}
+                    {% if lesson['positionIndex'] == hour['positionIndex'] %}
+                        <div class=lesson-div>
+                            {{ lesson["positionIndex"] }}
+                            {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         {% endfor %}
         </div>
     {% endif %}
