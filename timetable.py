@@ -1,6 +1,6 @@
 import json
 import requests
-from datetime import datetime, timedelta
+from datetime import *
 from flask_app import app
 
 def get_timetable(username, password, userid):
@@ -30,14 +30,10 @@ def get_timetable(username, password, userid):
         data_response = s.post("https://intranet.tam.ch/krm/timetable/ajax-get-timetable", data=payload, cookies=cookies, headers=headers)
     return data_response.json()["data"]
 
-def separate_days(data):
-    new_data = []
-    k = 0
+def set_positionIndex(data):
     for i in range(len(data)):
-        if data[i]["lessonDate"] != data[i-1]["lessonDate"] and i > 0 or i == len(data)-1:
-            new_data.append(data[k:i])
-            k = i
-    return new_data
+        data[i]["positionIndex"] = [datetime.utcfromtimestamp(int(data[i]["start"][6:16])).weekday() + 1, int(datetime.utcfromtimestamp(int(data[i]["start"][6:16])).strftime("%H")) - 7 + 2]
+    return data
 
 with open("credentials.json") as file:
     cred = json.load(file)
@@ -45,4 +41,4 @@ with open("credentials.json") as file:
     password = cred["password"]
     userid = cred["userid"]
 
-data = separate_days(get_timetable(username, password, userid))
+data = set_positionIndex(get_timetable(username, password, userid))

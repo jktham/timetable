@@ -5,15 +5,15 @@
         <p>No data</p>
     {% else %}
         <div class=week-div>
-        {% for day in data %}
-            <div class=day-div>
-            <span>{{ day[0]["lessonDate"] }}</span>
-            {% for lesson in day %}
-                <div class=lesson-div>
-                    {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
+        {% for lesson in data %}
+            
+                <div class=hour-div style="grid-column: {{ lesson['positionIndex'][0] }}; grid-row: {{ lesson['positionIndex'][1] }}">
+                    <div class=lesson-div>
+                        {{ lesson["positionIndex"] }}
+                        {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
+                    </div>
                 </div>
-            {% endfor %}
-            </div>
+            
         {% endfor %}
         </div>
     {% endif %}
