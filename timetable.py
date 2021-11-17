@@ -3,7 +3,7 @@ import requests
 from datetime import *
 from flask_app import app
 
-def get_timetable(username, password, userid):
+def getTimetable(username, password, userid):
     with requests.Session() as s:
         info_response = s.get("https://intranet.tam.ch/krm/timetable/classbook")
 
@@ -30,9 +30,9 @@ def get_timetable(username, password, userid):
         data_response = s.post("https://intranet.tam.ch/krm/timetable/ajax-get-timetable", data=payload, cookies=cookies, headers=headers)
     return data_response.json()["data"]
 
-def set_positionIndex(data):
+def setPositionIndex(data):
     for i in range(len(data)):
-        data[i]["positionIndex"] = [datetime.utcfromtimestamp(int(data[i]["start"][6:16])).weekday() + 1, int(datetime.utcfromtimestamp(int(data[i]["start"][6:16])).strftime("%H")) - 7 + 2]
+        data[i]["positionIndex"] = [datetime.utcfromtimestamp(int(data[i]["start"][6:16])).weekday() + 1, int(datetime.utcfromtimestamp(int(data[i]["start"][6:16])).strftime("%H")) - 7 + 3]
     return data
 
 with open("credentials.json") as file:
@@ -41,4 +41,4 @@ with open("credentials.json") as file:
     password = cred["password"]
     userid = cred["userid"]
 
-data = set_positionIndex(get_timetable(username, password, userid))
+data = setPositionIndex(getTimetable(username, password, userid))

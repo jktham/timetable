@@ -9,14 +9,23 @@
     text-align: center;
     min-width: 600px;
 }
+.day-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .hour-div {
     display: flex;
     gap: 5px;
 }
 .lesson-div {
     font-size: 10px;
-    background-color: lightgray;
+    background-color: rgb(216, 216, 216);
     flex: 1;
     min-width: 0;
     padding: 5px;
+}
+.lesson-div:hover {
+    background-color: rgb(230, 230, 230);
+    width: 100%;
 }

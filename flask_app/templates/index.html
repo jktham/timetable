@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
 {% block table %}
+
     {% if data == 0 %}
         <p>No data</p>
     {% else %}
+
         <div class=week-div>
+        {% set ns = namespace(previousDate="") %}
         {% for hour in data %}
+
+            {% if hour["lessonDate"] != ns.previousDate %}
+                <div class=day-label style="grid-column: {{ hour['positionIndex'][0] }}; grid-row: 0">
+                    {{ hour["lessonDate"] }}
+                </div>
+                {% set ns.previousDate = hour["lessonDate"] %}
+            {% endif %}
+
             <div class=hour-div style="grid-column: {{ hour['positionIndex'][0] }}; grid-row: {{ hour['positionIndex'][1] }}">
                 {% for lesson in data %}
                     {% if lesson['positionIndex'] == hour['positionIndex'] %}
@@ -16,7 +27,9 @@
                     {% endif %}
                 {% endfor %}
             </div>
+
         {% endfor %}
         </div>
+        
     {% endif %}
 {% endblock %}
