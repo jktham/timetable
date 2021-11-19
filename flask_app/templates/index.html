@@ -20,7 +20,7 @@
             <div class=hour-div style="grid-column: {{ hour['positionIndex'][0] }}; grid-row: {{ hour['positionIndex'][1] }}">
                 {% for lesson in data %}
                     {% if lesson['positionIndex'] == hour['positionIndex'] %}
-                        <div class=lesson-div>
+                        <div class="lesson-div {{'cancelled' if lesson['timetableEntryTypeShort'] == 'cancel'}}">
                             {{ lesson["positionIndex"] }}
                             {{ lesson["lessonDate"], lesson["lessonStart"], lesson["courseName"], lesson["roomName"] }}
                         </div>

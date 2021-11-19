@@ -29,3 +29,9 @@
     background-color: rgb(230, 230, 230);
     width: 100%;
 }
+.lesson-div.cancelled {
+    background-color: rgb(255, 134, 134);
+}
+.lesson-div.cancelled:hover {
+    background-color: rgb(255, 161, 161);
+}
