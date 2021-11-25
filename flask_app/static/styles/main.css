@@ -17,17 +17,17 @@
 }
 .hour-div {
     display: flex;
-    gap: 5px;
     width: 100%;
+    gap: 5px;
 }
 .lesson-div {
-    max-width: calc(50% - 12.5px);
     display: flex;
     flex-direction: column;
     flex: 1 0 50%;
+    max-width: calc(50% - 12.5px);
     padding: 5px;
-    background-color: rgb(216, 216, 216);
     overflow: hidden;
+    background-color: rgb(216, 216, 216);
 }
 .lesson-div:only-child {
     max-width: 100%;
@@ -54,30 +54,30 @@
 }
 .lesson-subtitle {
     max-width: 50%;
+    margin: 3px 5px;
+    margin-left: auto;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 10px;
-    margin: 3px 5px;
-    margin-left: auto;
 }
 .lesson-info {
     max-width: 90%;
+    margin: 5px 0px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 10px;
-    margin: 5px 0px;
 }
 .tooltip {
-    visibility: hidden;
+    display: none;
     position: absolute;
-    font-size: 12px;
+    margin-top: 6px;
+    padding: 5px;
     background-color: white;
     border: 1px solid black;
-    padding: 5px;
-    margin-bottom: 50px;
+    font-size: 12px;
 }
 .lesson-div>div>div:hover .tooltip {
-    visibility: visible;
+    display: block;
 }
