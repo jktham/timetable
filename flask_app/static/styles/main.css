@@ -4,34 +4,80 @@
 .week-div {
     display: grid;
     grid: repeat(12, 50px) / repeat(5, calc(20% - 8px));
-    margin: 10px;
-    gap: 5px 10px;
-    text-align: center;
     min-width: 600px;
+    max-width: 1000px;
+    margin: auto;
+    gap: 5px 10px;
 }
 .day-label {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .hour-div {
     display: flex;
     gap: 5px;
+    width: 100%;
 }
 .lesson-div {
-    font-size: 10px;
-    background-color: rgb(216, 216, 216);
-    flex: 1;
-    min-width: 0;
+    max-width: calc(50% - 12.5px);
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 50%;
     padding: 5px;
+    background-color: rgb(216, 216, 216);
+    overflow: hidden;
+}
+.lesson-div:only-child {
+    max-width: 100%;
 }
 .lesson-div:hover {
     background-color: rgb(230, 230, 230);
-    width: 100%;
 }
 .lesson-div.cancelled {
     background-color: rgb(255, 134, 134);
 }
 .lesson-div.cancelled:hover {
     background-color: rgb(255, 161, 161);
+}
+.lesson-header {
+    display: flex;
+}
+.lesson-title {
+    max-width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    font-weight: bold;
+}
+.lesson-subtitle {
+    max-width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    margin: 3px 5px;
+    margin-left: auto;
+}
+.lesson-info {
+    max-width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    margin: 5px 0px;
+}
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    font-size: 12px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 50px;
+}
+.lesson-div>div>div:hover .tooltip {
+    visibility: visible;
 }
