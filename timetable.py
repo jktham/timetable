@@ -4,6 +4,11 @@ import datetime
 from flask_app import app
 
 def getTimetable(username, password, userid, weekoffset):
+    if weekoffset == None:
+        weekoffset = 0
+    else:
+        weekoffset = int(weekoffset)
+    
     with requests.Session() as s:
         info_response = s.get("https://intranet.tam.ch/krm/timetable/classbook")
 
@@ -41,4 +46,4 @@ with open("credentials.json") as file:
     password = cred["password"]
     userid = cred["userid"]
 
-data = setPositionIndex(getTimetable(username, password, userid, 0))
+# data = setPositionIndex(getTimetable(username, password, userid, 0))
