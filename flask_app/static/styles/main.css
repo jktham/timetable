@@ -35,6 +35,9 @@
 .lesson-div:hover {
     background-color: rgb(230, 230, 230);
 }
+.lesson-div.exam {
+    background-color: rgb(255, 175, 83);
+}
 .lesson-div.cancelled {
     background-color: rgb(255, 134, 134);
 }
@@ -77,6 +80,7 @@
     background-color: white;
     border: 1px solid black;
     font-size: 12px;
+    font-weight: normal;
 }
 .lesson-div>div>div:hover .tooltip {
     display: block;

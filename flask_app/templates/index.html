@@ -20,7 +20,7 @@
             <div class=hour-div style="grid-column: {{ hour['positionIndex'][0] }}; grid-row: {{ hour['positionIndex'][1] }}">
                 {% for lesson in data %}
                     {% if lesson['positionIndex'] == hour['positionIndex'] %}
-                        <div class="lesson-div {{'cancelled' if lesson['timetableEntryTypeShort'] == 'cancel'}}">
+                        <div class="lesson-div {{ 'exam' if lesson['isExamLesson'] == true }} {{ 'cancelled' if lesson['timetableEntryTypeShort'] == 'cancel' }}">
                             <div class="lesson-header">
                                 <div class="lesson-title">
                                     {{ lesson["title"] }}
@@ -31,7 +31,7 @@
                                 <div class="lesson-subtitle">
                                     {{ lesson["lessonStart"][:5] }}
                                     <div class="tooltip">
-                                        {{ lesson["lessonDate"] }} <br> {{ lesson["lessonStart"] }}
+                                        {{ lesson["lessonDate"] }} <br> {{ lesson["lessonStart"] }} - {{ lesson["lessonEnd"] }}
                                     </div>
                                 </div>
                             </div>

@@ -1,9 +1,9 @@
 import json
 import requests
-from datetime import *
+import datetime
 from flask_app import app
 
-def getTimetable(username, password, userid):
+def getTimetable(username, password, userid, weekoffset):
     with requests.Session() as s:
         info_response = s.get("https://intranet.tam.ch/krm/timetable/classbook")
 
@@ -20,11 +20,11 @@ def getTimetable(username, password, userid):
             print("authentication failed")
             return 0
             
-        today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        monday = today - timedelta(days=today.weekday())
-        sunday = today + timedelta(days=6) - timedelta(days=today.weekday())
+        today = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + datetime.timedelta(weeks=weekoffset)
+        start = today - datetime.timedelta(days=today.weekday())
+        end = today + datetime.timedelta(days=6) - datetime.timedelta(days=today.weekday())
 
-        payload = {"startDate": monday.timestamp()*1000, "endDate": sunday.timestamp()*1000, "studentId[]": userid, "holidaysOnly": 0}
+        payload = {"startDate": start.timestamp()*1000, "endDate": end.timestamp()*1000, "studentId[]": userid, "holidaysOnly": 0}
         cookies = {"username": username, "sturmuser": username, "school": "krm", "sturmsession": session}
         headers = {"x-requested-with": "XMLHttpRequest"}
         data_response = s.post("https://intranet.tam.ch/krm/timetable/ajax-get-timetable", data=payload, cookies=cookies, headers=headers)
@@ -32,7 +32,7 @@ def getTimetable(username, password, userid):
 
 def setPositionIndex(data):
     for i in range(len(data)):
-        data[i]["positionIndex"] = [datetime.utcfromtimestamp(int(data[i]["start"][6:16])).weekday() + 1, int(datetime.utcfromtimestamp(int(data[i]["start"][6:16])).strftime("%H")) - 7 + 3]
+        data[i]["positionIndex"] = [datetime.datetime.utcfromtimestamp(int(data[i]["start"][6:16])).weekday() + 1, int(datetime.datetime.utcfromtimestamp(int(data[i]["start"][6:16])).strftime("%H")) - 7 + 3]
     return data
 
 with open("credentials.json") as file:
@@ -41,4 +41,4 @@ with open("credentials.json") as file:
     password = cred["password"]
     userid = cred["userid"]
 
-data = setPositionIndex(getTimetable(username, password, userid))
+data = setPositionIndex(getTimetable(username, password, userid, 0))
